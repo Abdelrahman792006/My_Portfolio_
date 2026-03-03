@@ -1,0 +1,854 @@
+/* =========================================
+   إصلاحات وتنسيقات اللغة العربية (RTL)
+========================================= */
+
+/* التوجيه الأساسي للصفحة */
+html[lang="ar"] {
+    direction: rtl;
+    text-align: right;
+}
+
+/* 1. إصلاح القائمة العلوية (Navbar) في وضع الموبايل */
+@media (max-width: 768px) {
+    html[lang="ar"] .nav-links {
+        left: 0; 
+        right: 0; /* جعلها تمتد على العرض بالكامل بدلاً من إزاحتها */
+        transform: translateY(-100%); /* الإخفاء للأعلى */
+    }
+
+    html[lang="ar"] .nav-links.active {
+        transform: translateY(0); /* الظهور عند النقر */
+    }
+}
+
+/* 2. إصلاح الخط الزمني (Timeline) ليتوافق مع اليمين واليسار */
+html[lang="ar"] .timeline::after {
+    left: auto;
+    right: 50%;
+    transform: translateX(50%); /* لضمان توسط الخط تماماً في المنتصف */
+}
+
+html[lang="ar"] .timeline-item {
+    text-align: right;
+}
+
+/* العنصر الفردي (يمين الخط في العربية) */
+html[lang="ar"] .timeline-item:nth-child(odd) {
+    left: auto;
+    right: 0;
+}
+
+/* العنصر الزوجي (يسار الخط في العربية) */
+html[lang="ar"] .timeline-item:nth-child(even) {
+    left: auto;
+    right: 50%;
+}
+
+/* إصلاح أماكن النقاط (Dots) على الخط الزمني */
+html[lang="ar"] .timeline-dot {
+    right: auto;
+    left: -8px; /* للعناصر الزوجية */
+}
+
+html[lang="ar"] .timeline-item:nth-child(odd) .timeline-dot {
+    right: -8px; /* للعناصر الفردية */
+    left: auto;
+}
+
+/* 3. إصلاح النصوص والاتجاهات في قسم البطل (Hero Section) */
+html[lang="ar"] .hero-content h1,
+html[lang="ar"] .hero-content h2 {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 8px; /* مسافة بسيطة بين الكلمات لمنع التداخل */
+}
+
+/* 4. إصلاح هوامش الأيقونات (Icons Margins) لتبدو صحيحة في العربية */
+html[lang="ar"] .contact-info i {
+    margin-right: 0;
+    margin-left: 10px; /* نقل المسافة لليسار */
+}
+
+html[lang="ar"] .social-links a {
+    margin-right: 0;
+    margin-left: 10px; /* نقل المسافة لليسار */
+}
+
+/* عكس اتجاه الأسهم أو الأيقونات التي تحتاج لذلك (مثل زر العودة للأعلى) */
+html[lang="ar"] #backToTop i {
+    transform: scaleX(1); /* إذا كان هناك سهم لليمين/اليسار استخدم scaleX(-1) لقلبه */
+}
+
+/* Variables for Theme (Dark Neon Theme) */
+:root {
+  --bg-color: #1a1725;
+  --card-bg: #221f30;
+  --primary-color: #00e6e6; /* Neon Cyan */
+  --secondary-color: #b829ff; /* Purple for mesh */
+  --text-light: #ffffff;
+  --text-muted: #a09dacc7;
+  --glass-bg: rgba(255, 255, 255, 0.05);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --shadow-neon: 0 0 15px rgba(0, 230, 230, 0.4);
+  --transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+body {
+  background-color: var(--bg-color);
+  color: var(--text-light);
+  overflow-x: hidden;
+}
+
+/* === NEW: Mesh Gradient Background === */
+html {
+  scroll-behavior: smooth;
+}
+.mesh-bg {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  background:
+    radial-gradient(
+      circle at 15% 50%,
+      rgba(0, 230, 230, 0.08),
+      transparent 25%
+    ),
+    radial-gradient(
+      circle at 85% 30%,
+      rgba(184, 41, 255, 0.08),
+      transparent 25%
+    );
+  animation: meshMovement 15s infinite alternate linear;
+}
+@keyframes meshMovement {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.2) translate(20px, -20px);
+  }
+}
+
+/* === NEW: Glassmorphism Class === */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  border-radius: 15px;
+}
+
+/* Animations Core (Original) */
+.hidden {
+  opacity: 0;
+  transform: translateY(40px);
+}
+.animate {
+  transition:
+    opacity 0.8s ease-out,
+    transform 0.8s ease-out;
+}
+.animate.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+.delay-1 {
+  transition-delay: 0.1s;
+}
+.delay-2 {
+  transition-delay: 0.3s;
+}
+.delay-3 {
+  transition-delay: 0.5s;
+}
+
+/* Navbar (Updated for Glass & Mobile) */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 8%;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
+  border-radius: 0;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+}
+.logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-light);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.logo img{
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+}
+.logo i {
+  color: var(--primary-color);
+}
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 25px;
+  transition: var(--transition);
+}
+.nav-links a {
+  color: var(--text-light);
+  text-decoration: none;
+  font-weight: 500;
+  transition: var(--transition);
+}
+.nav-links a:hover {
+  color: var(--primary-color);
+  text-shadow: var(--shadow-neon);
+}
+.menu-toggle {
+  display: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--text-light);
+}
+
+/* Global Buttons (Original) */
+.btn {
+  padding: 10px 25px;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: var(--transition);
+  display: inline-block;
+  cursor: pointer;
+}
+.btn.primary {
+  background: var(--primary-color);
+  color: #000;
+  box-shadow: var(--shadow-neon);
+}
+.btn.primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 25px rgba(0, 230, 230, 0.7);
+}
+.btn.secondary {
+  border: 2px solid var(--primary-color);
+  color: var(--primary-color);
+}
+.btn.secondary:hover {
+  background: var(--primary-color);
+  color: #000;
+  box-shadow: var(--shadow-neon);
+}
+
+.contact-info a{
+  color: var(--primary-color);
+  text-decoration: none;
+  transition: var(--transition);
+}
+.contact-info a:hover {
+  text-decoration: underline;
+  color: var(--secondary-color);
+  text-shadow: var(--shadow-neon);
+
+}
+/* Hero Section (Updated for static image & typing) */
+.hero {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 120px 8% 50px;
+  min-height: 100vh;
+}
+.hero-content {
+  flex: 1;
+}
+.hero-content h1 {
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+  
+}
+.hero-content h1  span {
+  /* color: #00e6e6; */
+    color: var(--primary-color);
+}
+.hero-content h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+.highlight {
+  color: var(--primary-color);
+}
+.cursor {
+  color: var(--primary-color);
+  animation: blink 0.8s infinite;
+}
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+.hero-content p {
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 25px;
+  max-width: 500px;
+}
+.contact-info p {
+  margin-bottom: 10px;
+  font-size: 0.9rem;
+}
+.contact-info i {
+  color: var(--primary-color);
+  margin-right: 10px;
+}
+.buttons {
+  margin: 30px 0;
+  display: flex;
+  gap: 15px;
+}
+.social-links a {
+  color: var(--primary-color);
+  border: 1px solid var(--primary-color);
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  margin-right: 10px;
+  transition: var(--transition);
+}
+.social-links a:hover {
+  background: var(--primary-color);
+  color: #000;
+  box-shadow: var(--shadow-neon);
+  transform: rotate(360deg);
+}
+
+/* Static Hero Image (New) */
+.hero-image-static {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+.image-wrapper {
+  width: 350px;
+  height: 450px;
+  padding: 10px;
+  z-index: 2;
+  border: 2px solid var(--primary-color);
+  box-shadow: var(--shadow-neon);
+}
+.image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+.glowing-circle {
+  position: absolute;
+  width: 300px;
+  height: 300px;
+  background: var(--primary-color);
+  border-radius: 50%;
+  filter: blur(100px);
+  opacity: 0.3;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  animation: pulseGlow 4s infinite alternate;
+}
+
+/* === NEW: Stats Section === */
+.stats-section {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  padding: 0 8% 50px;
+  flex-wrap: wrap;
+}
+.stat-box {
+  padding: 30px;
+  text-align: center;
+  width: 200px;
+}
+.stat-box h3 {
+  font-size: 2.5rem;
+  color: var(--primary-color);
+  margin-bottom: 10px;
+}
+.stat-box p {
+  color: var(--text-light);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+/* === NEW: Timeline Section === */
+.timeline-section {
+  padding: 80px 8%;
+  background-color: var(--card-bg);
+}
+.timeline {
+  position: relative;
+  max-width: 800px;
+  margin: 0 auto;
+}
+.timeline::after {
+  content: "";
+  position: absolute;
+  width: 2px;
+  background: rgba(0, 230, 230, 0.3);
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.timeline-item {
+  padding: 10px 40px;
+  position: relative;
+  width: 50%;
+  margin-bottom: 30px;
+}
+.timeline-item:nth-child(odd) {
+  left: 0;
+  text-align: right;
+}
+.timeline-item:nth-child(even) {
+  left: 50%;
+}
+.timeline-dot {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  background: var(--primary-color);
+  border-radius: 50%;
+  top: 20px;
+  right: -8px;
+  z-index: 1;
+  box-shadow: var(--shadow-neon);
+}
+.timeline-item:nth-child(even) .timeline-dot {
+  left: -8px;
+}
+.timeline-content {
+  padding: 20px;
+}
+.timeline-content h4 {
+  color: var(--primary-color);
+  margin-bottom: 5px;
+}
+.timeline-content .date {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  margin-bottom: 10px;
+}
+
+/* Section Titles (Original) */
+.section-title {
+  text-align: center;
+  margin-bottom: 50px;
+}
+.section-title h2 {
+  font-size: 1rem;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+.section-title h3 {
+  font-size: 2.5rem;
+  color: var(--primary-color);
+  text-shadow: var(--shadow-neon);
+}
+
+/* === NEW: Infinite Marquee Skills === */
+.skills-section {
+  padding: 80px 8%;
+  background-color: transparent;
+}
+.marquee-container {
+  padding: 30px 0;
+  overflow: hidden;
+  white-space: nowrap;
+  position: relative;
+}
+.marquee-container::before,
+.marquee-container::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 100px;
+  height: 100%;
+  z-index: 2;
+  pointer-events: none;
+}
+.marquee-container::before {
+  left: 0;
+  background: linear-gradient(to right, var(--bg-color), transparent);
+}
+.marquee-container::after {
+  right: 0;
+  background: linear-gradient(to left, var(--bg-color), transparent);
+}
+.marquee-content {
+  display: inline-block;
+  animation: scrollMarquee 25s linear infinite;
+}
+.marquee-content:hover {
+  animation-play-state: paused;
+}
+.skill-item {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 40px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+.skill-item i {
+  font-size: 4rem;
+  margin-bottom: 10px;
+  transition: var(--transition);
+}
+.skill-item p {
+  font-weight: 500;
+  font-size: 0.9rem;
+  color: var(--text-light);
+}
+.skill-item:hover {
+  transform: translateY(-10px);
+}
+.skill-item:hover i {
+  transform: scale(1.1);
+  filter: drop-shadow(0 0 8px var(--primary-color));
+}
+@keyframes scrollMarquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* Portfolio (Original updated with 3D Tilt support) */
+.portfolio-section {
+  padding: 80px 8%;
+  background-color: var(--card-bg);
+}
+.filter-buttons {
+  text-align: center;
+  margin-bottom: 40px;
+}
+.filter-buttons button {
+  background: none;
+  border: none;
+  color: var(--text-light);
+  font-size: 1rem;
+  margin: 0 10px;
+  cursor: pointer;
+  padding-bottom: 5px;
+  transition: var(--transition);
+}
+.filter-buttons button.active,
+.filter-buttons button:hover {
+  color: var(--primary-color);
+  border-bottom: 2px solid var(--primary-color);
+}
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+}
+.project-card {
+  position: relative;
+  overflow: hidden;
+  transform-style: preserve-3d;
+  cursor: pointer;
+}
+
+
+.project-card img {
+    width: 100%;
+    height: 300px; /* يمكنك زيادة هذا الرقم ليناسب أبعاد صورتك */
+    object-fit: contain; /* هذا يضمن ظهور الصورة كاملة دون قص */
+    background-color: rgba(0, 0, 0, 0.2); /* خلفية خفيفة لملء الفراغات إذا كانت الصورة صغيرة */
+    transition: var(--transition);
+    border-radius: 15px;
+    display: block;
+}
+.project-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(26, 23, 37, 0.9);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: var(--transition);
+  transform: translateY(20px) translateZ(40px);
+  border-radius: 15px;
+}
+.project-card:hover img {
+  transform: scale(1.05) translateZ(20px);
+}
+.project-card:hover .project-overlay {
+  opacity: 1;
+  transform: translateY(0) translateZ(40px);
+}
+.project-overlay h4 {
+  color: var(--primary-color);
+  font-size: 1.2rem;
+  margin-bottom: 5px;
+}
+.project-overlay a {
+  margin-top: 15px;
+  color: #fff;
+  background: var(--primary-color);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  transition: var(--transition);
+}
+.project-overlay a:hover {
+  background: #fff;
+  color: var(--primary-color);
+}
+
+/* Contact Form (Original) */
+.contact-section {
+  padding: 80px 8%;
+}
+.contact-form {
+  max-width: 600px;
+  margin: 0 auto;
+  display: grid;
+  gap: 20px;
+}
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 15px;
+  background: rgba(0, 0, 0, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
+  color: #fff;
+  outline: none;
+  transition: var(--transition);
+}
+.contact-form input:focus,
+.contact-form textarea:focus {
+  border-color: var(--primary-color);
+  box-shadow: var(--shadow-neon);
+}
+.btn-submit {
+  width: 100%;
+  border: none;
+  font-size: 1.1rem;
+}
+
+/* === NEW: Toast Notification & Back to Top === */
+#toast {
+  position: fixed;
+  bottom: -100px;
+  right: 20px;
+  padding: 15px 25px;
+  color: var(--primary-color);
+  font-weight: 500;
+  z-index: 2000;
+  transition: var(--transition);
+  border-left: 4px solid var(--primary-color);
+}
+#toast.show {
+  bottom: 20px;
+}
+
+#backToTop {
+  position: fixed;
+  bottom: -100px;
+  right: 20px;
+  width: 45px;
+  height: 45px;
+  background: transparent;
+  color: var(--primary-color);
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  z-index: 1500;
+  transition: var(--transition);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+#backToTop:hover {
+  background: var(--primary-color);
+  color: #000;
+  box-shadow: var(--shadow-neon);
+}
+#backToTop.show {
+  bottom: 80px;
+}
+
+/* Responsive (Updated for Timeline and Menu) */
+@media (max-width: 768px) {
+  .nav-links {
+    position: fixed; /* تغيير إلى fixed لتغطية الشاشة بالكامل */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh; /* تأخذ طول الشاشة بالكامل */
+    background: rgba(26, 23, 37, 0.98); /* خلفية داكنة لضمان الوضوح */
+    backdrop-filter: blur(20px); /* تأثير ضبابي قوي */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* تلاحم الروابط في المنتصف */
+    align-items: center;
+    gap: 30px;
+    z-index: 999;
+    transition: all 0.5s cubic-bezier(0.77, 0, 0.175, 1);
+    
+    /* تأثير الدخول من الأعلى */
+    transform: translateY(-100%); 
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .nav-links.active {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  /* تكبير حجم الروابط في الموبايل لسهولة الضغط */
+  .nav-links a {
+    font-size: 1.8rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  /* تأمين ظهور زر الإغلاق فوق القائمة */
+  .menu-toggle {
+    display: block;
+    position: relative;
+    z-index: 1001; /* أعلى من القائمة */
+  }
+
+  /* إضافة حركة بسيطة لكل رابط عند ظهور القائمة */
+  .nav-links.active li {
+    animation: fadeInUp 0.5s ease forwards;
+    opacity: 0;
+  }
+
+  .nav-links.active li:nth-child(1) { animation-delay: 0.1s; }
+  .nav-links.active li:nth-child(2) { animation-delay: 0.2s; }
+  .nav-links.active li:nth-child(3) { animation-delay: 0.3s; }
+  .nav-links.active li:nth-child(4) { animation-delay: 0.4s; }
+  .nav-links.active li:nth-child(5) { animation-delay: 0.5s; }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.devicon-bootstrap-plain {
+  color: #7952b3;
+}
+/* تنسيق حاوية الأيقونات داخل قائمة الموبايل */
+.mobile-socials {
+    display: flex;
+    gap: 20px;
+    margin-top: 20px; /* مسافة بسيطة بعد آخر رابط */
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.6s ease;
+}
+
+/* عندما تصبح القائمة نشطة، تظهر الأيقونات بأنيميشن */
+.nav-links.active .mobile-socials {
+    opacity: 1;
+    transform: translateY(0);
+    transition-delay: 0.6s; /* تظهر بعد ظهور آخر رابط في القائمة */
+}
+
+.mobile-socials a {
+    font-size: 1.5rem !important; /* حجم مناسب للموبايل */
+    color: var(--primary-color);
+    border: 1px solid var(--primary-color);
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    transition: 0.3s;
+}
+
+.mobile-socials a:hover {
+    background: var(--primary-color);
+    color: #000;
+    box-shadow: var(--shadow-neon);
+}
+@media (max-width: 768px) {
+  .hero {
+    flex-direction: column; /* جعل العناصر تحت بعضها */
+    text-align: center;
+    padding-top: 120px; /* مساحة كافية تحت النافبار الثابت */
+    height: auto;
+    min-height: 100vh;
+    display: flex;
+  }
+
+  .hero-content {
+    order: 1; /* جعل النص يظهر أولاً */
+    width: 100%;
+    margin-bottom: 40px; /* مساحة قبل الصورة */
+  }
+
+  .hero-image-static {
+    order: 2; /* جعل الصورة تنزل تحت النص */
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .image-wrapper {
+    width: 280px; /* تصغير حجم الصورة قليلاً ليتناسب مع الموبايل */
+    height: 350px;
+    margin: 0 auto;
+  }
+}

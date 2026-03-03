@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Professional MERN Stack Portfolio</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- سبب المشكلة (تقنياً):
+ملفات الـ CSS الخاصة بـ Font Awesome مبرمجة داخلياً لتبحث عن الخطوط في مسار يبدأ بـ ../webfonts/.
+
+بما أن ملف all.min.css موجود حالياً في المجلد الرئيسي بجانب index.html مباشرة، فإن علامة ../ تجعله يخرج خارج مجلد المشروع ليرى مجلد الـ webfonts (وهو غير موجود هناك)، لذلك تظهر المربعات.
+
+الحل الجذري (ترتيب المجلدات الصحيح):
+لحل هذه المشكلة وجعل مشروعك يتبع المعايير الاحترافية، اتبع الخطوات التالية بدقة:
+
+1. إنشاء مجلد CSS:
+داخل مجلد second (مشروعك الحالي)، أنشئ مجلد جديد سمه css.
+
+2. نقل الملفات:
+
+انقل ملف all.min.css إلى داخل مجلد css.
+
+انقل ملف devicon.min.css إلى داخل مجلد css.
+
+انقل ملفك الشخصي style.css إلى داخل مجلد css.
+
+3. الحفاظ على مجلدات الخطوط:
+
+اترك مجلد webfonts كما هو في المجلد الرئيسي (بجانب مجلد css الجديد).
+
+اترك مجلد fonts (الخاص بـ Devicon) كما هو في المجلد الرئيسي.
+
+سيكون هيكل المجلدات هكذا:
+
+Plaintext
+/second
+├── /css
+│   ├── all.min.css
+│   ├── devicon.min.css
+│   └── style.css
+├── /webfonts (يحتوي على خطوط Font Awesome)
+├── /fonts (يحتوي على خطوط Devicon)
+└── index.html -->
+   <link rel="stylesheet" href="css/all.min.css">
+
+<link rel="stylesheet" href="css/devicon.min.css">
+
+<link rel="stylesheet" href="css/style.css">
+  </head>
+  <body>
+    <div class="mesh-bg"></div>
+
+    <nav class="navbar glass">
+      <div class="logo">
+        <!-- <i class="fa-solid fa-code"></i> <span>MyLogo.</span> -->
+         <img src="./imgs/portfoliologe_2.png" alt="Portfolio Logo">
+         
+      </div>
+     <ul class="nav-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#about">Journey</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#portfolio">Portfolio</a></li>
+    <li><a href="#contact">Contact</a></li>
+    
+    <div class="mobile-socials">
+        <a href="https://linkedin.com/in/abdelrahman-ali-el-masry-b18438357/" target="_blank"><i class="fa-brands fa-linkedin-in"></i></a>
+        <a href="https://github.com/Abdelrahman792006" target="_blank"><i class="fa-brands fa-github"></i></a>
+        <a href="mailto:elmasryelmasry2006@gmail.com"><i class="fa-solid fa-envelope"></i></a>
+    </div>
+</ul>
+      <div class="menu-toggle"><i class="fa-solid fa-bars"></i></div>
+    </nav>
+
+    <section id="home" class="hero">
+      <div class="hero-content animate hidden delay-1">
+        <h1>Hi! I'm <span>Abdelrahman Elmasry</span></h1>
+        <h2>
+          And I'm a <span class="highlight typing-text"></span
+          ><span class="cursor">|</span>
+        </h2>
+        <p>
+          Passionate about building scalable web applications and intuitive user
+          interfaces. Specialized in React, Node.js, and modern web
+          technologies.
+        </p>
+
+        <div class="contact-info">
+          <p><i class="fa-solid fa-envelope"></i> <a href="mailto:elmasryelmasry2006@gmail.com">elmasryelmasry2006@gmail.com</a></p>
+          <p><i class="fa-brands fa-github"></i> <a href="https://github.com/Abdelrahman792006" target="_blank">GitHub Profile</a></p>
+        </div>
+
+        <div class="buttons">
+          <a href="#" class="btn primary">Download CV</a>
+          <a href="#contact" class="btn secondary">Hire Me Now!</a>
+        </div>
+
+        <div class="social-links">
+          <a href="https://www.linkedin.com/in/abdelrahman-ali-el-masry-b18438357/" target="_blank"><i class="fa-brands fa-linkedin-in"></i></a>
+          <a href="https://github.com/Abdelrahman792006" target="_blank"><i class="fa-brands fa-github"></i></a>
+          <!-- <a href="#"><i class="fa-brands fa-twitter"></i></a> -->
+        </div>
+      </div>
+
+      <div class="hero-image-static animate hidden delay-2">
+        <div class="image-wrapper glass">
+          <img
+            src="./imgs/Gemini_Generated_Image_6xpukb6xpukb6xpu.png"
+            alt="Profile Photo"
+            id="hero-img"
+          />
+        </div>
+        <div class="glowing-circle"></div>
+      </div>
+    </section>
+
+    <section class="stats-section animate hidden delay-1">
+      <div class="stat-box glass">
+        <h3 class="counter" data-target=""></h3>
+        <p>Projects Completed</p>
+      </div>
+      <div class="stat-box glass">
+        <h3 class="counter" data-target=""></h3>
+        <p>Hours of Coding</p>
+      </div>
+      <div class="stat-box glass">
+        <h3 class="counter" data-target=""></h3>
+        <p>Happy Clients</p>
+      </div>
+    </section>
+
+    <section id="about" class="timeline-section">
+      <div class="section-title animate hidden delay-1">
+        <h2>My Journey</h2>
+        <h3>Experience & Education</h3>
+      </div>
+      <div class="timeline animate hidden delay-2">
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content glass">
+            <h4>junior Full-Stack Developer</h4>
+            <p class="date">2025 </p>
+            <p>
+              Trainee at DEPI, where I honed my skills in full-stack development, working on real-world projects and collaborating with experienced developers to build scalable web applications.
+            </p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content glass">
+            <h4>Full Stack MERN Developer</h4>
+            <p class="date">2026</p>
+            <p>
+              Buiding creative and responsive web applications using HTML, CSS, JS .
+            </p>
+          </div>
+        </div>
+        <!-- <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content glass">
+            <h4>اسم الوظيفة / الكورس الجديد</h4>
+            <p class="date">2020 - 2022</p>
+            <p>
+              وصف مختصر لما قمت به في هذه الفترة، سيأخذ التنسيق الزجاجي تلقائياً.
+            </p>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content glass">
+            <h4>اسم الوظيفة / الكورس الجديد</h4>
+            <p class="date">2020 - 2022</p>
+            <p>
+              وصف مختصر لما قمت به في هذه الفترة، سيأخذ التنسيق الزجاجي تلقائياً.
+            </p>
+          </div>
+        </div> -->
+      </div>
+        </div>
+        
+    </section>
+
+    <section id="skills" class="skills-section">
+      <div class="section-title animate hidden delay-1">
+        <h2>Technical & Professional</h2>
+        <h3>My Skills</h3>
+      </div>
+
+      <div class="marquee-container glass animate hidden delay-2">
+        <div class="marquee-content">
+          <div class="skill-item">
+            <i class="devicon-html5-plain colored"></i>
+            <p>HTML5</p>
+          </div>
+          <div class="skill-item">
+            <i class="devicon-css3-plain colored"></i>
+            <p>CSS3</p>
+          </div>
+          <div class="skill-item">
+            <i class="devicon-javascript-plain colored"></i>
+            <p>JavaScript</p>
+          </div>
+          <div class="skill-item">
+            <i class="devicon-react-original colored"></i>
+            <p>React.js</p>
+          </div>
+          <div class="skill-item">
+            <i class="devicon-nodejs-plain colored"></i>
+            <p>Node.js</p>
+          </div>
+          <div class="skill-item">
+            <i class="devicon-mongodb-plain colored"></i>
+            <p>MongoDB</p>
+          </div>
+          <div class="skill-item">
+            <i class="devicon-bootstrap-plain colored"></i>
+            <p>Bootstrap</p>
+          </div>
+          <div class="skill-item">
+            <i class="devicon-git-plain colored"></i>
+            <p>Git</p>
+          </div>
+
+          <div class="skill-item">
+            <i class="devicon-html5-plain colored"></i>
+            <p>HTML5</p>
+          </div>
+          <div class="skill-item">
+            <i class="devicon-css3-plain colored"></i>
+            <p>CSS3</p>
+          </div>
+          <div class="skill-item">
+            <i class="devicon-javascript-plain colored"></i>
+            <p>JavaScript</p>
+          </div>
+          <div class="skill-item">
+            <i class="devicon-react-original colored"></i>
+            <p>React.js</p>
+          </div>
+          <div class="skill-item">
+            <i class="devicon-nodejs-plain colored"></i>
+            <p>Node.js</p>
+          </div>
+          <div class="skill-item">
+            <i class="devicon-mongodb-plain colored"></i>
+            <p>MongoDB</p>
+          </div>
+          <!-- <div class="skill-item">
+            <i class="devicon-tailwindcss-plain colored"></i>
+            <p>Tailwind</p>
+          </div> -->
+          <div class="skill-item">
+            <i class="devicon-git-plain colored"></i>
+            <p>Git</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="portfolio" class="portfolio-section">
+      <div class="section-title animate hidden delay-1">
+        <h2>What I Will Do For You</h2>
+        <h3>Latest Projects</h3>
+      </div>
+
+      <div class="filter-buttons animate hidden delay-2">
+        <button class="active" data-filter="all">All</button>
+        <button data-filter="frontend">Front-end</button>
+        <button data-filter="fullstack">Full Stack MERN</button>
+      </div>
+
+      <div class="portfolio-grid animate hidden delay-3">
+        <div class="project-card glass frontend">
+  <img
+    src="./imgs/Gemini_Generated_Image_uvbqbmuvbqbmuvbq.png" 
+    alt="Professional Portfolio Project"
+  />
+  <div class="project-overlay">
+    <h4>Professional Portfolio</h4>
+    <p>HTML, CSS, JS, Glassmorphism</p>
+    <div class="project-links">
+        <a href="https://github.com/Abdelrahman792006" target="_blank" title="View Code">
+            <i class="fa-brands fa-github"></i>
+        </a>
+        <a href="#" title="Live Demo">
+            <i class="fa-solid fa-link"></i>
+        </a>
+    </div>
+  </div>
+</div>
+
+        <!-- <div class="project-card glass fullstack">
+          <img
+            src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=800&auto=format&fit=crop"
+            alt="E-commerce App"
+          />
+          <div class="project-overlay">
+            <h4>E-Commerce Platform</h4>
+            <p>React, Node.js, MongoDB</p>
+            <a href="#"><i class="fa-solid fa-link"></i></a>
+          </div>
+        </div>
+        <div class="project-card glass frontend">
+          <img
+            src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=800&auto=format&fit=crop"
+            alt="Dashboard UI"
+          />
+          <div class="project-overlay">
+            <h4>Admin Dashboard UI</h4>
+            <p>React, Tailwind CSS</p>
+            <a href="#"><i class="fa-solid fa-link"></i></a>
+          </div>
+        </div>
+        <div class="project-card glass fullstack">
+          <img
+            src="https://images.unsplash.com/photo-1522542550221-31fd19575a2d?q=80&w=800&auto=format&fit=crop"
+            alt="Social Media App"
+          />
+          <div class="project-overlay">
+            <h4>Social Network</h4>
+            <p>MERN Stack, Socket.io</p>
+            <a href="#"><i class="fa-solid fa-link"></i></a>
+          </div>
+        </div>
+      </div> -->
+    </section>
+
+    <section id="contact" class="contact-section">
+      <div class="section-title animate hidden delay-1">
+        <h2>Ask Me Question</h2>
+        <h3>Contact Me</h3>
+      </div>
+      <form id="contactForm" class="contact-form animate hidden delay-2">
+        <input type="text" placeholder="Your Name" required />
+        <input type="email" placeholder="Your Email" required />
+        <input type="text" placeholder="Your Address" />
+        <input type="text" placeholder="Phone Number" />
+        <textarea placeholder="Your Message" rows="5" required></textarea>
+        <button type="submit" class="btn primary btn-submit">
+          Send Message
+        </button>
+      </form>
+    </section>
+
+    <div id="toast" class="glass">Message sent successfully!</div>
+    <button id="backToTop" class="glass">
+      <i class="fa-solid fa-arrow-up"></i>
+    </button>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
+    <script src="./JS/script.js"></script>
+  </body>
+</html>
