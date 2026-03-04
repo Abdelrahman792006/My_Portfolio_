@@ -852,3 +852,90 @@ html {
     margin: 0 auto;
   }
 }
+
+
+
+
+/* ========================================= */
+/* إصلاح الخط الزمني (Timeline) للموبايل     */
+/* ========================================= */
+@media (max-width: 768px) {
+  
+  /* 1. التعديلات للغة الإنجليزية (الافتراضية) */
+  .timeline::after {
+    left: 31px; /* تحريك الخط لأقصى اليسار */
+  }
+  
+  .timeline-item {
+    width: 100%; /* الكارت يأخذ العرض بالكامل */
+    padding-left: 70px; /* مسافة من اليسار لترك مكان للخط */
+    padding-right: 25px;
+  }
+  
+  /* جعل الكروت الزوجية والفردية تبدأ من نفس النقطة */
+  .timeline-item:nth-child(even), 
+  .timeline-item:nth-child(odd) {
+    left: 0;
+    text-align: left;
+  }
+  
+  /* نقل كل النقاط لتكون على الخط في اليسار */
+  .timeline-dot {
+    left: 23px !important;
+    right: auto !important;
+  }
+  
+  /* ----------------------------------------- */
+  /* 2. التعديلات للغة العربية (RTL) في الموبايل */
+  /* ----------------------------------------- */
+  html[lang="ar"] .timeline::after {
+    left: auto;
+    right: 31px; /* تحريك الخط لأقصى اليمين */
+    transform: none; /* إلغاء التوسيط القديم */
+  }
+  
+  html[lang="ar"] .timeline-item {
+    padding-left: 25px;
+    padding-right: 70px; /* مسافة من اليمين لترك مكان للخط */
+    text-align: right;
+  }
+  
+  html[lang="ar"] .timeline-item:nth-child(even), 
+  html[lang="ar"] .timeline-item:nth-child(odd) {
+    right: 0;
+    left: auto;
+  }
+  
+  html[lang="ar"] .timeline-dot {
+    right: 23px !important;
+    left: auto !important;
+  }
+}
+
+@media (max-width: 768px) {
+    /* ... أكواد الموبايل السابقة ... */
+
+    /* توسيط أزرار التحميل والتوظيف في الموبايل */
+    .buttons {
+        justify-content: center;
+        flex-wrap: wrap; /* تضمن عدم خروج الأزرار من الشاشة إذا كان الموبايل صغيراً جداً */
+    }
+}
+
+
+.hero-content p {
+    color: var(--text-muted);
+    line-height: 1.8; /* زيادة المسافة بين الأسطر لراحة العين */
+    margin: 20px auto; /* التوسيط أفقياً */
+    max-width: 600px; /* تحديد العرض لضمان عدم تمدد النص بشكل مزعج */
+    font-size: 1.05rem;
+}
+
+@media (max-width: 768px) {
+    .hero-content p {
+        text-align: center; /* توسيط النص في الموبايل */
+        padding: 0 10px;
+    }
+}
+
+
